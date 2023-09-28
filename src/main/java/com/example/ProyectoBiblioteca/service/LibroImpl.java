@@ -19,7 +19,9 @@ public class LibroImpl implements LibroI {
     @Override
     public List<LibroDto> findAllLibros() {
 
-        return libroRepository.findAll().stream().map(MapperLibro::toDto).collect(Collectors.toList());
+        return libroRepository.findAll().stream()
+                .map(MapperLibro::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override

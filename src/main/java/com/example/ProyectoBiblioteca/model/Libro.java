@@ -8,13 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(schema = "libro")
+//@Table(schema = "libro")
 //@Data //crea getters setters ctor y tostring automaticamente
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-
 public class Libro {
 
     @Id

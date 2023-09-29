@@ -13,6 +13,8 @@ public interface LibroI {
 
     LibroDto findLibro(String title);
 
+    LibroDto findLibro(Long id);
+
     String updateLibro(Long id, LibroDto libroDto);
 
     String deleteLibro(Long id);

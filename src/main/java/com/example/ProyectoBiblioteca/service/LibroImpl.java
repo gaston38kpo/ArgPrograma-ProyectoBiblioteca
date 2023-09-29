@@ -18,7 +18,6 @@ public class LibroImpl implements LibroI {
 
     @Override
     public List<LibroDto> findAllLibros() {
-
         return libroRepository.findAll().stream()
                 .map(MapperLibro::toDto)
                 .collect(Collectors.toList());
@@ -28,7 +27,7 @@ public class LibroImpl implements LibroI {
     public String saveLibro(LibroDto libroDto) {
         Libro libroEntity = MapperLibro.toEntity(libroDto);
         libroRepository.save(libroEntity);
-        return "Libro guardado exitosamnte";
+        return "Libro guardado exitosamente";
     }
 
     @Override
@@ -36,7 +35,13 @@ public class LibroImpl implements LibroI {
         Libro libroEntity = libroRepository.findByTitle(title);
         LibroDto libroDto = MapperLibro.toDto(libroEntity);
         return libroDto;
+    }
 
+    @Override
+    public LibroDto findLibro(Long id) {
+        Libro libroEntity = libroRepository.findById(id).orElseThrow();
+        LibroDto libroDto = MapperLibro.toDto(libroEntity);
+        return libroDto;
     }
 
     @Override

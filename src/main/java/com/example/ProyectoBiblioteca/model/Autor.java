@@ -1,5 +1,6 @@
 package com.example.ProyectoBiblioteca.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class Autor {
     @Column
     private String surname;
     @ManyToMany(mappedBy = "autores")
+    @JsonIgnore
     private Set<Libro> libros = new HashSet<>();
 }

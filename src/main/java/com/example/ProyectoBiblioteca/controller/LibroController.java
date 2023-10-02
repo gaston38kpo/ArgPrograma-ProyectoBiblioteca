@@ -24,12 +24,27 @@ public class LibroController {
         List<LibroDto> lista = libroService.findAllLibros();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
+    /* GET http://localhost:8080/libros/findAll */
 
     @PostMapping("/save")
     public ResponseEntity<String> saveLibro(@RequestBody LibroDto libroDto) {
         String mensaje = libroService.saveLibro(libroDto);
         return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
+    /* POST http://localhost:8080/libros/save
+    BODY:
+{
+    "title": "Harry Potter y la piedra filosofal",
+    "publishDate": "2001-11-29",
+    "genre": "Ficción",
+    "autores": [
+        {
+            "name": "Joanne Kathleen",
+            "surname": "Rowling "
+        }
+    ]
+}
+    */
 
     @PostMapping("/findByTitle")
     public ResponseEntity<LibroDto> findLibrosByTitle(@RequestBody LibroDto libroDto) {
@@ -44,6 +59,11 @@ public class LibroController {
 
         return new ResponseEntity<>(libroDtoFound, HttpStatus.OK);
     }
+    /* POST http://localhost:8080/libros/findByTitle
+{
+    "title": "El Hobbit"
+}
+    */
 
     @PutMapping("/update")
     public ResponseEntity<String> updateLibro(@RequestParam Long id, @RequestBody LibroDto libroDto) {
@@ -64,6 +84,20 @@ public class LibroController {
 
         return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
+    /* PUT http://localhost:8080/libros/update?id=3
+{
+    "title": "Dune",
+    "publishDate": "2023-09-29T03:00:00.000+00:00",
+    "genre": "Ciencia Ficción",
+    "autores": [
+        {
+            "id": 3,
+            "name": "Michael",
+            "surname": "Johnson"
+        }
+    ]
+}
+    */
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteLibro(@RequestParam Long id) {
@@ -79,5 +113,6 @@ public class LibroController {
 
         return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
+    /* DELETE http://localhost:8080/libros/delete?id=1 */
 
 }

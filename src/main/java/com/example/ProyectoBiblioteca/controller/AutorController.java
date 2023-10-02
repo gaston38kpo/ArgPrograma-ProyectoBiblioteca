@@ -22,12 +22,20 @@ public class AutorController {
         List<AutorDto> lista = autorService.findAllAutores();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
+    /* GET http://localhost:8080/autores/findAll */
 
     @PostMapping("/save")
     public ResponseEntity<String> saveAutor(@RequestBody AutorDto autorDto) {
         String mensaje = autorService.saveAutor(autorDto);
         return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
+    /* POST http://localhost:8080/autores/save
+{
+    "name": "Gaston",
+    "surname": "Giacobini",
+    "libros": []
+}
+    */
 
     @PostMapping("/findBySurname")
     public ResponseEntity<AutorDto> findAutorBySurname(@RequestBody AutorDto autorDto) {
@@ -42,12 +50,20 @@ public class AutorController {
 
         return new ResponseEntity<>(autorDtoFound, HttpStatus.OK);
     }
+    /* POST http://localhost:8080/autores/findBySurname
+{
+    "surname": "Doe"
+}
+    */
 
     @GetMapping("/find")
     public ResponseEntity<AutorDto> findAutorById(@RequestParam Long id) {
         AutorDto autorDto = autorService.findAutor(id);
         return new ResponseEntity<>(autorDto, HttpStatus.OK);
     }
+    /* GET http://localhost:8080/autores/find?id=1
+
+    */
 
     @PutMapping("/update")
     public ResponseEntity<String> updateAutor(@RequestParam Long id, @RequestBody AutorDto autorDto) {
@@ -67,12 +83,19 @@ public class AutorController {
 
         return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
-
+    /* PUT http://localhost:8080/autores/update?id=1
+{
+    "name": "John",
+    "surname": "Tree",
+    "libros": []
+}
+    */
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteAutor(@RequestParam Long id) {
         String mensaje = autorService.deleteAutor(id);
         return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
+    /* DELETE http://localhost:8080/autores/delete?id=1 */
 }
 

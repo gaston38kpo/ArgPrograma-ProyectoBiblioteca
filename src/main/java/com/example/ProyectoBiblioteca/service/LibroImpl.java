@@ -1,7 +1,9 @@
 package com.example.ProyectoBiblioteca.service;
 
 import com.example.ProyectoBiblioteca.dto.LibroDto;
+import com.example.ProyectoBiblioteca.dto.LibroLessInfoDto;
 import com.example.ProyectoBiblioteca.mapper.MapperLibro;
+import com.example.ProyectoBiblioteca.mapper.MapperLibroLessInfo;
 import com.example.ProyectoBiblioteca.model.Libro;
 import com.example.ProyectoBiblioteca.repository.LibroRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,13 @@ public class LibroImpl implements LibroI {
     public List<LibroDto> findAllLibros() {
         return libroRepository.findAll().stream()
                 .map(MapperLibro::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LibroLessInfoDto> findAllLibrosLessInfo() {
+        return libroRepository.findAll().stream()
+                .map(MapperLibroLessInfo::toDto)
                 .collect(Collectors.toList());
     }
 

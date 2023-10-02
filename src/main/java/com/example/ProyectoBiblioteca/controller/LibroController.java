@@ -1,6 +1,7 @@
 package com.example.ProyectoBiblioteca.controller;
 
 import com.example.ProyectoBiblioteca.dto.LibroDto;
+import com.example.ProyectoBiblioteca.dto.LibroLessInfoDto;
 import com.example.ProyectoBiblioteca.mapper.MapperLibro;
 import com.example.ProyectoBiblioteca.model.Libro;
 import com.example.ProyectoBiblioteca.service.LibroI;
@@ -25,6 +26,13 @@ public class LibroController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
     /* GET http://localhost:8080/libros/findAll */
+
+    @GetMapping("/findAllLessInfo")
+    public ResponseEntity<List<LibroLessInfoDto>> findAllLibrosLessInfo() {
+        List<LibroLessInfoDto> lista = libroService.findAllLibrosLessInfo();
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+    /* GET http://localhost:8080/libros/findAllLessInfo */
 
     @PostMapping("/save")
     public ResponseEntity<String> saveLibro(@RequestBody LibroDto libroDto) {

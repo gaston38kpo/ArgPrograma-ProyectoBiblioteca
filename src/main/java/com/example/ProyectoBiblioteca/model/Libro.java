@@ -26,7 +26,7 @@ public class Libro {
     private Date publishDate;
     @Column
     private String genre;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "libro_autor",
             joinColumns = @JoinColumn(name = "libro_id"),
             inverseJoinColumns = @JoinColumn(name = "autor_id"))

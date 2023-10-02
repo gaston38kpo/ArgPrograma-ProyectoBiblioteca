@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,14 +31,22 @@ public class LibroController {
         return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<LibroDto> findLibro(@RequestParam String title) {
-        LibroDto libroDto = libroService.findLibro(title);
-        return new ResponseEntity<>(libroDto, HttpStatus.OK);
+    @PostMapping("/findByTitle")
+    public ResponseEntity<LibroDto> findLibrosByTitle(@RequestBody LibroDto libroDto) {
+        if (libroDto == null || libroDto.getTitle() == null || libroDto.getTitle().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        LibroDto libroDtoFound = libroService.findLibro(libroDto.getTitle());
+        if (libroDtoFound == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(libroDtoFound, HttpStatus.OK);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateLibro(@RequestBody Long id, @RequestBody LibroDto libroDto) {
+    public ResponseEntity<String> updateLibro(@RequestParam Long id, @RequestBody LibroDto libroDto) {
         LibroDto libro = libroService.findLibro(id);
 
         if (libro == null) {
@@ -50,14 +59,14 @@ public class LibroController {
         libro.setAutores(libroDto.getAutores());
         libro.setPublishDate(libroDto.getPublishDate());
 
-        libroService.saveLibro(libro);
+        libroService.updateLibro(id, libro);
         String mensaje = "Libro '" + libro.getTitle() + "' fue actualizado correctamente";
 
         return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteLibro(@RequestBody Long id) {
+    public ResponseEntity<String> deleteLibro(@RequestParam Long id) {
         LibroDto libro = libroService.findLibro(id);
 
         if (libro == null) {
